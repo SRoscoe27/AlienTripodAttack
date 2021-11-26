@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class powerCell : MonoBehaviour
 {
-
+//comment remove later
     public GameObject explode; 
     private GameObject tripod; 
     private GameObject Crates;
