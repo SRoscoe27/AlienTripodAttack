@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6df785d8c68025e4fa25c4e3ff27b9c6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - powercell: {fileID: 2020427866231277154, guid: e66068618b60c4545a45b315cbc98ff2, type: 3}
+  - throwSound: {instanceID: 0}
+  - collectionSound: {fileID: 8300000, guid: 76d46d60f4ab44b78bb0bf9a1bccb4e7, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
