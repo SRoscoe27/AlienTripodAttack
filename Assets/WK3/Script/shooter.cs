@@ -12,6 +12,9 @@ public class shooter : MonoBehaviour
     public AudioClip collectionSound; // sound when power cell is collected
     private Rigidbody rb;
 
+    [SerializeField] GameObject pauseGame = null;
+    bool isPaused; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,17 @@ public class shooter : MonoBehaviour
             other.gameObject.SetActive(false);
             AudioSource.PlayClipAtPoint(collectionSound, transform.position);
             no_cell ++;
+        }
+
+    }
+
+// if user dies a game over screen need to occur - Ben your alien work would join with me here ^-^
+    void OnCollisionEnter(Collision other){
+        Debug.Log("Noooo an alien hit me i die now");
+        if(other.gameObject.CompareTag("Alien")){
+            AudioSource.PlayClipAtPoint(explosionB, transform.position);
+            Time.timescale = 0; 
+            GameOver.active = !GameOver.active;
         }
 
     }
