@@ -32,6 +32,6 @@ public class StartScreenUI : MonoBehaviour
 
     public void exitLevel(){ 
  
-        SceneManager.LoadScene("Level01");  
+        Application.Quit(); 
     } 
 }
