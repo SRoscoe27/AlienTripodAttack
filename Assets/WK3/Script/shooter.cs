@@ -20,9 +20,6 @@ public class shooter : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        //GameObject.Find("GOCanvas");
-        //GOImage.GetComponent<Image>();
     }
 
     // Code for picking up power cell collectables 
