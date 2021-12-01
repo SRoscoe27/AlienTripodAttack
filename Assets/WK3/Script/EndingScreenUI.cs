@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndingScreenUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject GOImage;
+    public GameObject SuccessImage;
+    // Start is called before the first frame update 
     void Start()
     {
         
@@ -17,12 +21,14 @@ public class EndingScreenUI : MonoBehaviour
     }
 
     public void startLevel(){ 
-        Time.timescale = 1;
+        GOImage.active = !GOImage.active;
+        Time.timeScale = 1;
         SceneManager.LoadScene("Level01");  
     } 
 
     public void exitGame(){ 
-        Time.timescale = 1;
+        GOImage.active = !GOImage.active;
+        Time.timeScale = 1;
         SceneManager.LoadScene("IntroScreen");  
     } 
 }

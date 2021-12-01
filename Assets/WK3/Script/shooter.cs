@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class shooter : MonoBehaviour
 {
@@ -12,33 +14,33 @@ public class shooter : MonoBehaviour
     public AudioClip collectionSound; // sound when power cell is collected
     private Rigidbody rb;
 
-    [SerializeField] GameObject pauseGame = null;
-    bool isPaused; 
+    public GameObject GOImage; 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        //GameObject.Find("GOCanvas");
+        //GOImage.GetComponent<Image>();
     }
 
     // Code for picking up power cell collectables 
     void OnTriggerEnter(Collider other){
-        Debug.Log("Triggered");
         if(other.gameObject.CompareTag("Pick Up")){
+            Debug.Log("Triggered");
             other.gameObject.SetActive(false);
             AudioSource.PlayClipAtPoint(collectionSound, transform.position);
             no_cell ++;
         }
 
-    }
+        // if user dies a game over screen need to occur - Ben your alien work would join with me here ^-^
+        else if (other.gameObject.CompareTag("Alien")){
+            Debug.Log("Noooo an alien hit me i die now");
+            AudioSource.PlayClipAtPoint(collectionSound, transform.position);
+            Time.timeScale = 0; 
+            GOImage.active = !GOImage.active;
 
-// if user dies a game over screen need to occur - Ben your alien work would join with me here ^-^
-    void OnCollisionEnter(Collision other){
-        Debug.Log("Noooo an alien hit me i die now");
-        if(other.gameObject.CompareTag("Alien")){
-            AudioSource.PlayClipAtPoint(explosionB, transform.position);
-            Time.timescale = 0; 
-            GameOver.active = !GameOver.active;
         }
 
     }
