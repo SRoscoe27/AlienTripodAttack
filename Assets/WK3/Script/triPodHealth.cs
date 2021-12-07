@@ -6,6 +6,7 @@ public class triPodHealth : MonoBehaviour
 {
     private float health = 3; 
     public GameObject smoke, flare; 
+    public GameObject SuccessImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +18,13 @@ public class triPodHealth : MonoBehaviour
         health --; 
     }
 
-    //For eahch collision, check if health is 0 and activate appropreate GameObjects if so. 
+    //For each collision, check if health is 0 and activate appropriate GameObjects if so. 
     void OnCollisionEnter(Collision other){
         if (health <= 0){ 
             smoke.SetActive(true); 
             flare.SetActive(true); 
+            Time.timeScale = 0; 
+            SuccessImage.active = !SuccessImage.active; 
         } 
     }
 

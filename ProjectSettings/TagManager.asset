@@ -9,6 +9,7 @@ TagManager:
   - Fire
   - Pick Up
   - Crates
+  - Alien
   layers:
   - Default
   - TransparentFX
