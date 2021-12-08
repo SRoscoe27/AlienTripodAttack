@@ -8,6 +8,7 @@ public class EndingScreenUI : MonoBehaviour
 {
     public GameObject GOImage;
     public GameObject SuccessImage;
+    public GameObject PauseImage;
     // Start is called before the first frame update 
     void Start()
     {
@@ -31,4 +32,10 @@ public class EndingScreenUI : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("IntroScreen");  
     } 
+
+    public void resumeLevel(){
+        PauseImage.active = !PauseImage.active;
+        Time.timeScale = 1;
+
+    }
 }
