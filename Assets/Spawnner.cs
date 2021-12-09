@@ -6,7 +6,7 @@ public class Spawnner : MonoBehaviour
 {
     public float spawnTime=10; //Spawn Time, change for later
     public GameObject zombie; //zombie prefab
-
+    public int zombieCount =  0;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +19,16 @@ public class Spawnner : MonoBehaviour
         yield return new WaitForSeconds(spawnTime);
         //Spawn prefab add randomc position
         GameObject go = Instantiate(zombie,transform.position, Quaternion.identity) as GameObject;
-
-    }
+        zombieCount++;
+        // to do: needs to reduce zombie count if they die
+        if(zombieCount < 5){}
+            //Start the spawn update
+            StartCoroutine("Spawn");
+        }
+    
     // Update is called once per frame
     void Update()
     {
-        //Start the spawn again
-        StartCoroutine("Spawn");
+
     }
 }
