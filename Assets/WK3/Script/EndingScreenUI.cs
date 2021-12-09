@@ -9,10 +9,11 @@ public class EndingScreenUI : MonoBehaviour
     public GameObject GOImage;
     public GameObject SuccessImage;
     public GameObject PauseImage;
+    public GameObject Pause_Music;
     // Start is called before the first frame update 
     void Start()
     {
-        
+       Pause_Music.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,8 +35,11 @@ public class EndingScreenUI : MonoBehaviour
     } 
 
     public void resumeLevel(){
-        PauseImage.active = !PauseImage.active;
+        Pause_Music.SetActive(false);
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
+        PauseImage.active = !PauseImage.active;
 
     }
 }

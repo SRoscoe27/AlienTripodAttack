@@ -12,14 +12,19 @@ public class shooter : MonoBehaviour
     public AudioClip throwSound; //throw sound 
     public float throwSpeed= 20;//throw speed  
     public AudioClip collectionSound; // sound when power cell is collected
+    public AudioClip gameOver;
     private Rigidbody rb;
 
     public GameObject GOImage; 
+    public GameObject PauseImage;
+    public GameObject Pause_Music; 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Pause_Music.GetComponent<AudioSource>();
+        Pause_Music.SetActive(false);
     }
 
     // Code for picking up power cell collectables 
@@ -34,8 +39,10 @@ public class shooter : MonoBehaviour
         // if user dies a game over screen need to occur - Ben your alien work would join with me here ^-^
         else if (other.gameObject.CompareTag("Alien")){
             Debug.Log("Noooo an alien hit me i die now");
-            AudioSource.PlayClipAtPoint(collectionSound, transform.position);
+            AudioSource.PlayClipAtPoint(gameOver, transform.position);
             Time.timeScale = 0; 
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true;
             GOImage.active = !GOImage.active;
 
         }
@@ -64,5 +71,13 @@ public class shooter : MonoBehaviour
             //give the powerCell a velocity so that it moves forward 
            cell.GetComponent<Rigidbody>().velocity = transform.forward * throwSpeed;  
         } 
+        else if(Input.GetKeyDown(KeyCode.P)){
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true;
+            Pause_Music.active = !Pause_Music.active;
+            PauseImage.active = !PauseImage.active;
+
+        }
     }
 }
