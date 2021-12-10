@@ -72,11 +72,11 @@ public class shooter : MonoBehaviour
            cell.GetComponent<Rigidbody>().velocity = transform.forward * throwSpeed;  
         } 
         else if(Input.GetKeyDown(KeyCode.P)){
-            Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
             Pause_Music.active = !Pause_Music.active;
             PauseImage.active = !PauseImage.active;
+            Time.timeScale = 0;
 
         }
     }
