@@ -7,6 +7,7 @@ public class triPodHealth : MonoBehaviour
     private float health = 3; 
     public GameObject smoke, flare; 
     public GameObject SuccessImage;
+    public AudioClip successSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,10 @@ public class triPodHealth : MonoBehaviour
         if (health <= 0){ 
             smoke.SetActive(true); 
             flare.SetActive(true); 
-            Time.timeScale = 0; 
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None; 
+            Cursor.visible = true; 
+            AudioSource.PlayClipAtPoint(successSound, transform.position);
             SuccessImage.active = !SuccessImage.active; 
         } 
     }

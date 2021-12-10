@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 public class StartScreenUI : MonoBehaviour
 {
     public GameObject HTPPanel;   
+    public GameObject Menu_Music;
     // Start is called before the first frame update
     void Start()
     {
-        //HTPPanel.GetComponent<Image>(); 
+        Menu_Music.GetComponent<AudioSource>();
+        Menu_Music.SetActive(true);
 
     }
 
@@ -21,7 +23,7 @@ public class StartScreenUI : MonoBehaviour
     }
 
     public void restartLevel(){ 
- 
+        Menu_Music.SetActive(false);
         SceneManager.LoadScene("Level01");  
     } 
 
