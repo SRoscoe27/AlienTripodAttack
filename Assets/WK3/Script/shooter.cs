@@ -19,12 +19,15 @@ public class shooter : MonoBehaviour
     public GameObject PauseImage;
     public GameObject Pause_Music; 
 
+    public static int sceneCount; 
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Pause_Music.GetComponent<AudioSource>();
         Pause_Music.SetActive(false);
+        Debug.Log(sceneCount);
     }
 
     // Code for picking up power cell collectables 
@@ -36,7 +39,6 @@ public class shooter : MonoBehaviour
             no_cell ++;
         }
 
-        // if user dies a game over screen need to occur - Ben your alien work would join with me here ^-^
         else if (other.gameObject.CompareTag("Alien")){
             Debug.Log("Noooo an alien hit me i die now");
             AudioSource.PlayClipAtPoint(gameOver, transform.position);

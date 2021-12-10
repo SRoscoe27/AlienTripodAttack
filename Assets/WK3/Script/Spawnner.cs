@@ -17,13 +17,19 @@ public class Spawnner : MonoBehaviour
     IEnumerator Spawn(){
         //Wait spawnTime
         yield return new WaitForSeconds(spawnTime);
-        //Spawn prefab add randomc position
+        //Spawn prefab add random position
         GameObject go = Instantiate(zombie,transform.position, Quaternion.identity) as GameObject;
         zombieCount++;
+        Debug.Log(zombieCount);
         // to do: needs to reduce zombie count if they die
-        if(zombieCount < 5){}
-            //Start the spawn update
+        if(zombieCount < 5){
             StartCoroutine("Spawn");
+        }
+        else{
+            StopCoroutine("Spawn");
+        }
+            //Start the spawn update
+            
         }
     
     // Update is called once per frame

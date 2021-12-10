@@ -69,7 +69,6 @@ public class ZombieController : MonoBehaviour
         if(!alreadyAttacked){
 
             //insert the attack code here
-
             alreadyAttacked = true;
             Invoke("ResetAttack", attackInterval);
         }
@@ -80,11 +79,18 @@ public class ZombieController : MonoBehaviour
     }
     public void death(){
         //handles the death of the zombie and drops powercell, use after zombie is shot
+        double chance = Random.Range(0f, 1f);
+        if(chance > 0.6){
+            GameObject temp = Instantiate(powercell, transform.position, Quaternion.identity) as GameObject;
+            Destroy(gameObject);
+        }
+        else{
+            Destroy(gameObject);
+        }
 
         // insert code to change animation to death
         
-        GameObject temp = Instantiate(powercell, transform.position, Quaternion.identity) as GameObject;
-        Destroy(gameObject);
+        
     }
     void Start(){
         
