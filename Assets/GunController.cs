@@ -13,9 +13,6 @@ public class GunController : MonoBehaviour{
     int _currentAmmo;
     int _currentReserve;
 
-    public Image muzzleFlashImage;
-    public Sprite[] flashes;
-
     private void Start(){
         _currentAmmo = clipSize;
         _currentReserve = reservedAmmoCapacity;
@@ -23,11 +20,12 @@ public class GunController : MonoBehaviour{
     }
 
     private void update(){
-        if(Input.getMouseButton(0) && _canShoot && _currentAmmo > 0){
+        if(Input.GetMouseButton(0) && _canShoot && _currentAmmo > 0){
+            Debug.Log("Shooting gun");
             _canShoot = false;
             _currentAmmo--;
             StartCoroutine(ShootGun());
-        }else if(Input.getKeyDown(KeyCode.R) && _currentAmmo < clipSize && _currentReserve > 0){
+        }else if(Input.GetKeyDown(KeyCode.R) && _currentAmmo < clipSize && _currentReserve > 0){
             int amountNeeded = clipSize - _currentAmmo;
             if(amountNeeded>=_currentReserve){
                 _currentAmmo += amountNeeded;
@@ -38,16 +36,26 @@ public class GunController : MonoBehaviour{
             }
         }
     }
+
     IEnumerator ShootGun(){
-        StartCoroutine(muzzleFlash());
+        RayCastForEnemy();
         yield return new WaitForSeconds(fireRate);
         _canShoot = true;
     }
-    IEnumerator muzzleFlash(){
-        muzzleFlashImage.sprite = flashes[Random.Range(0, flashes.length)];
-        muzzleFlashImage.color = Color.white;
-        yield return new WaitForSeconds(0.05f);
-        muzzleFlashImage.sprite = null;
-        muzzleFlashImage.color = new Color(0, 0, 0, 0);
+    void RayCastForEnemy(){
+        RaycastHit hit;
+        if(Physics.Raycast(transform.parent.position, transform.parent.forward, out hit, 1 << LayerMask.NameToLayer("Alien"))){
+            try
+            {
+                Debug.Log("Hit Enemy");
+                 hit.collider.SendMessage("Hit", 1);
+            }
+            catch (System.Exception)
+            {
+            }
+            
+        }
     }
+
 }
+
