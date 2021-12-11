@@ -16,7 +16,11 @@ public class JetpackBehavior : MonoBehaviour
     public float JetForce = 0.5f;
     public float maxSpeed = 6f;
     public float distToGround;
+    public bool isFlying;
     public Camera camera;
+
+    Rect fuelRect;
+    Texture2D fuelTexture;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,13 @@ public class JetpackBehavior : MonoBehaviour
         distToGround = GetComponent<Collider>().bounds.extents.y;
         Jetpack_Sound.GetComponent<AudioSource>();
         Jetpack_Sound.SetActive(false);
+
+        fuelRect = new Rect(Screen.width / 10, Screen.height / 10, Screen.width / 3, Screen.height / 50);
+        fuelRect.y -= fuelRect.height;
+
+        fuelTexture = new Texture2D(1,1);
+        fuelTexture.SetPixel(0,0, Color.red);
+        fuelTexture.Apply();
     }
 
     public bool isGrounded(){
@@ -32,10 +43,19 @@ public class JetpackBehavior : MonoBehaviour
 
     }
 
+    void OnGUI(){
+        float ratio = fuel/fuelUsing;
+        float rectWidth = ratio * Screen.width / 3;
+        fuelRect.width = rectWidth;
+        GUI.DrawTexture(fuelRect, fuelTexture);
+
+    }
+
     void Update(){
         if((fuel >= 0) && (Input.GetKey(KeyCode.C))) StartCoroutine("Jetpack");
         if((fuel <= 0) && (Input.GetKeyUp(KeyCode.C))) {
             StopCoroutine("Jetpack");
+            isFlying = false;
 
             if(fuel<=0 || (fuel > 0 && isGrounded())){
                 JetPackSmoke.SetActive(false);
@@ -54,6 +74,7 @@ public class JetpackBehavior : MonoBehaviour
     }
 
     IEnumerator Jetpack (){
+        isFlying = true;
         JetPackSmoke.SetActive(true);
         Jetpack_Sound.SetActive(true);
         Jetpack_Sound.transform.position = transform.position;
