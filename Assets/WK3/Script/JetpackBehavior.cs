@@ -21,6 +21,7 @@ public class JetpackBehavior : MonoBehaviour
 
     Rect fuelRect;
     Texture2D fuelTexture;
+    Vector2 pivotPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class JetpackBehavior : MonoBehaviour
         Jetpack_Sound.GetComponent<AudioSource>();
         Jetpack_Sound.SetActive(false);
 
-        fuelRect = new Rect(Screen.width / 10, Screen.height / 10, Screen.width / 3, Screen.height / 50);
+        fuelRect = new Rect(Screen.width / 3, Screen.height / 10 - 200, Screen.width / 3, Screen.height / 30);
         fuelRect.y -= fuelRect.height;
 
         fuelTexture = new Texture2D(1,1);
@@ -39,11 +40,14 @@ public class JetpackBehavior : MonoBehaviour
     }
 
     public bool isGrounded(){
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        return Physics.Raycast(transform.position, Vector3.down, distToGround + 1.1f);
 
     }
 
     void OnGUI(){
+        pivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+        GUIUtility.RotateAroundPivot(270, pivotPoint);
+
         float ratio = fuel/fuelUsing;
         float rectWidth = ratio * Screen.width / 3;
         fuelRect.width = rectWidth;
@@ -56,8 +60,7 @@ public class JetpackBehavior : MonoBehaviour
         if((fuel <= 0) && (Input.GetKeyUp(KeyCode.C))) {
             StopCoroutine("Jetpack");
             isFlying = false;
-
-            if(fuel<=0 || (fuel > 0 && isGrounded())){
+            if (isFlying == false){
                 JetPackSmoke.SetActive(false);
                 Jetpack_Sound.SetActive(false);
             }
@@ -65,7 +68,7 @@ public class JetpackBehavior : MonoBehaviour
             rigid.AddForce(new Vector3(0, gravity, 0));
 
             while(fuel<20 && isGrounded()){
-                fuel += fuelUsing * Time.deltaTime;
+                fuel += Time.deltaTime;
                 Debug.Log(fuel);
             }
             
