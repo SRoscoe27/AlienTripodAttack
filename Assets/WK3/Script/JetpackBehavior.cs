@@ -60,14 +60,15 @@ public class JetpackBehavior : MonoBehaviour
         if((fuel <= 0) && (Input.GetKeyUp(KeyCode.C))) {
             StopCoroutine("Jetpack");
             isFlying = false;
+
             if (isFlying == false){
                 JetPackSmoke.SetActive(false);
                 Jetpack_Sound.SetActive(false);
             }
             
             rigid.AddForce(new Vector3(0, gravity, 0));
-
-            while(fuel<20 && isGrounded()){
+            
+            while(fuel<20f && isGrounded()){
                 fuel += Time.deltaTime;
                 Debug.Log(fuel);
             }

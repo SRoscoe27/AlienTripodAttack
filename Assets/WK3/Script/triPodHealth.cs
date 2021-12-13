@@ -8,6 +8,7 @@ public class triPodHealth : MonoBehaviour
     public GameObject smoke, flare; 
     public GameObject SuccessImage;
     public AudioClip successSound;
+    public GameObject HUD;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class triPodHealth : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true; 
             AudioSource.PlayClipAtPoint(successSound, transform.position);
+            HUD.active = !HUD.active;
             SuccessImage.active = !SuccessImage.active; 
         } 
     }

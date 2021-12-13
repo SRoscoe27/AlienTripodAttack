@@ -18,6 +18,7 @@ public class shooter : MonoBehaviour
     public GameObject GOImage; 
     public GameObject PauseImage;
     public GameObject Pause_Music; 
+    public GameObject HUD;
 
     public static int sceneCount; 
 
@@ -28,6 +29,7 @@ public class shooter : MonoBehaviour
         Pause_Music.GetComponent<AudioSource>();
         Pause_Music.SetActive(false);
         Debug.Log(sceneCount);
+        HUD.active = true; 
     }
 
     // Code for picking up power cell collectables 
@@ -45,6 +47,7 @@ public class shooter : MonoBehaviour
             Time.timeScale = 0; 
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
+            HUD.active = !HUD.active; 
             GOImage.active = !GOImage.active;
 
         }
@@ -76,6 +79,7 @@ public class shooter : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.P)){
             Cursor.lockState = CursorLockMode.None; 
             Cursor.visible = true;
+            HUD.active = !HUD.active;
             Pause_Music.active = !Pause_Music.active;
             PauseImage.active = !PauseImage.active;
             Time.timeScale = 0;

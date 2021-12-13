@@ -10,6 +10,7 @@ public class EndingScreenUI : MonoBehaviour
     public GameObject SuccessImage;
     public GameObject PauseImage;
     public GameObject Pause_Music;
+    public GameObject HUD;
     // Start is called before the first frame update 
     void Start()
     {
@@ -39,6 +40,7 @@ public class EndingScreenUI : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
+        HUD.active = !HUD.active;
         PauseImage.active = !PauseImage.active;
 
     }
