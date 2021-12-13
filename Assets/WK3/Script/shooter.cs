@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class shooter : MonoBehaviour
 {
-
+    public GameObject pistol;
     public GameObject powercell; //link to the powerCell prefab 
     public int no_cell; //number of powerCell owned 
     public AudioClip throwSound; //throw sound 
@@ -48,7 +48,10 @@ public class shooter : MonoBehaviour
             GOImage.active = !GOImage.active;
 
         }
-
+        if(other.gameObject.CompareTag("RiflePickup")){
+            pistol.GetComponent<GunController>().SwapToRifle();
+            Destroy(other); 
+        }
     }
 
     // Update is called once per frame

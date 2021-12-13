@@ -10,6 +10,9 @@ TagManager:
   - Pick Up
   - Crates
   - Alien
+  - Pistol
+  - Rifle
+  - RiflePickup
   layers:
   - Default
   - TransparentFX
