@@ -1,14 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//test commit ben
+
+/**
+@author Sophia Roscoe and premade code by Jim Ang
+@version 1.0
+The purpose of this script is to define the behavior of the powercell. In this script is the 
+functionality as to when the powercells interact with the crates and enemy
+
+Variables include: 
+    - public GameObject explode: Used to store the explosion sound effect
+    - public GameObject tripod: Used to store the script for triPodHealth so the reduceHealth() function can be accessed
+    - public GameObject Crates: Used to reference the crates and its child objects
+    - public float removeTime: float to store the amount of time we want the powercell to last before it is destroyed
+**/
+
 public class powerCell : MonoBehaviour
 {
-//comment remove later
     public GameObject explode; 
     private GameObject tripod; 
     private GameObject Crates;
     float removeTime = 3.0f; 
+
     // Start is called before the first frame update
     void Start()
     {
