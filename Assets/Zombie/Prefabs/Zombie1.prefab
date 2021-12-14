@@ -2752,7 +2752,8 @@ MonoBehaviour:
   attackRange: 0
   playerInSightRange: 0
   playerInAttackRange: 0
-  health: 1
+  health: 3
+  removeTime: 2
 --- !u!54 &7624432944301133985
 Rigidbody:
   m_ObjectHideFlags: 0

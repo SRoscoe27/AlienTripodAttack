@@ -33,8 +33,13 @@ public class HUD_Behavior : MonoBehaviour
     public Text reserveAmmo ;
     public Text Powercell_no;
 
-    public GameObject Handgun;
-    public GameObject Rifle;
+    [SerializeField] private Sprite rifleSprite;
+    [SerializeField] private Sprite pistolSprite;
+
+    private Image icon;
+
+    // public GameObject Handgun;
+    // public GameObject Rifle;
 
     public GameObject H_Text;
     public GameObject R_Text;
@@ -47,21 +52,28 @@ public class HUD_Behavior : MonoBehaviour
     private GunController ammo_amount;
     private GunController r_ammo_amount;
 
+    private Slider fuelBar;
+    private JetpackBehavior jetpack;
+
     // Start is called before the first frame update
     void Start()
     {
         powercell_amount = pc.GetComponent<shooter>();
         ammo_amount = ham.GetComponent<GunController>();
+        icon = GameObject.Find("WeaponIcon").GetComponent<Image>();
+        fuelBar = GameObject.Find("GOCanvas/HUD/FuelBar").GetComponent<Slider>();
+        jetpack = GameObject.Find("FirstPerson-AIO").GetComponent<JetpackBehavior>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if(ammo_amount.isRifle == true){
-            Rifle.SetActive(true);
+            icon.sprite = rifleSprite;
+            // Rifle.SetActive(true);
             R_Text.SetActive(true);
-            Handgun.SetActive(false);
-            H_Text.SetActive(false);
+            // Handgun.SetActive(false);
+             H_Text.SetActive(false);
             //Handgun.active = !Handgun.active;
 
             r_ammo_amount = ram.GetComponent<GunController>();
@@ -74,9 +86,10 @@ public class HUD_Behavior : MonoBehaviour
 
             // if ammo is equal to 0 then switch to the handgun with infinite ammo
             if(r_ammo_amount._currentAmmo == 0){
-                Rifle.active = !Rifle.active;
+                //Rifle.active = !Rifle.active;
+                icon.sprite = pistolSprite;
                 R_Text.active = !R_Text.active;
-                Handgun.active = !Handgun.active;
+                //Handgun.active = !Handgun.active;
                 H_Text.active = !H_Text.active;
             }
 
@@ -96,7 +109,11 @@ public class HUD_Behavior : MonoBehaviour
         //Display the number of powercells to the HUD.
         Powercell_no.text = powercell_amount.no_cell.ToString();
 
+        #region JetPack Fuel
 
+        fuelBar.value = jetpack.getRatio();
+
+        #endregion
         
     }
 }

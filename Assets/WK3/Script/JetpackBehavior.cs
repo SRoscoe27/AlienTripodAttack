@@ -61,15 +61,6 @@ public class JetpackBehavior : MonoBehaviour
         distToGround = GetComponent<Collider>().bounds.extents.y;
         Jetpack_Sound.GetComponent<AudioSource>();
         Jetpack_Sound.SetActive(false);
-
-        //defines the dimentions of the fuel bar
-        fuelRect = new Rect(Screen.width / 3, Screen.height / 10 - 200, Screen.width / 3, Screen.height / 30);
-        fuelRect.y -= fuelRect.height;
-
-        //Assigns the fuel bar a color and default position before applying it to the GUI screen
-        fuelTexture = new Texture2D(1,1);
-        fuelTexture.SetPixel(0,0, Color.red);
-        fuelTexture.Apply();
     }
 
     // Public method returning a boolean value to indicate when the user is on the ground
@@ -78,17 +69,8 @@ public class JetpackBehavior : MonoBehaviour
 
     }
 
-    // Method to have the fuel bar work on the GUI. This rotates it as well as provides the functionality for the fuel 
-    // bar to increase and decrease with fuel use.
-    void OnGUI(){
-        pivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
-        GUIUtility.RotateAroundPivot(270, pivotPoint);
-
-        float ratio = fuel/fuelUsing;
-        float rectWidth = ratio * Screen.width / 3;
-        fuelRect.width = rectWidth;
-        GUI.DrawTexture(fuelRect, fuelTexture);
-
+    public float getRatio(){
+        return fuel/fuelUsing;
     }
 
     // Update is called once per frame
@@ -109,12 +91,13 @@ public class JetpackBehavior : MonoBehaviour
             //Add gravity force to bring user back down to the ground
             rigid.AddForce(new Vector3(0, gravity, 0));
             
+            
+            }
+            
             // If the user is grounded and their fuel is less then 20, slowly add back the fuel.
             while(fuel<20f && isGrounded()){
                 fuel += Time.deltaTime;
                 Debug.Log(fuel);
-            }
-            
             }
     }
 

@@ -49,6 +49,9 @@ public class ZombieController : MonoBehaviour
     //health
     public int health;
 
+    //death effect
+    public float removeTime = 2.0f;
+
     public void Awake(){
         player = GameObject.Find ("FirstPerson-AIO").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -108,7 +111,7 @@ public class ZombieController : MonoBehaviour
         Vector3 spawn = transform.position + new Vector3(0,1,0);
         bloodEffect.SetActive(true);
         GameObject blood = Instantiate(bloodEffect, spawn, Quaternion.identity) as GameObject;
-        
+
         if(chance > 0.6){
             GameObject temp = Instantiate(powercell, spawn, Quaternion.identity) as GameObject;
             Destroy(gameObject);
@@ -117,7 +120,7 @@ public class ZombieController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Destroy(blood);
+        Destroy(blood, removeTime);
         
     }
     void Hit(int damage){

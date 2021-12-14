@@ -48,6 +48,7 @@ public class EndingScreenUI : MonoBehaviour
     public void startLevel(){ 
         GOImage.active = !GOImage.active;
         Time.timeScale = 1;
+        SceneManager.UnloadScene("Level01"); 
         SceneManager.LoadScene("Level01");  
     } 
 

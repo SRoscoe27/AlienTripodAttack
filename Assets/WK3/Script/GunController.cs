@@ -14,6 +14,9 @@ public class GunController : MonoBehaviour{
     public GameObject pistol;
     public GameObject rifle;
 
+    public GameObject bloodEffect;
+    public float removeTime = 2.0f;
+
     bool _canShoot;
     public int _currentAmmo;
     public int _currentReserve;
@@ -65,6 +68,8 @@ public class GunController : MonoBehaviour{
                 float distance =  Vector3.Distance(hit.transform.position, transform.position);
                 if(distance < range){
                     Debug.Log("Hit Enemy");
+                    GameObject blood = Instantiate(bloodEffect, hit.transform.position + new Vector3(0,1,0), Quaternion.identity) as GameObject;
+                    Destroy(blood ,removeTime);
                     try{ 
                         if(isRifle){
                              hit.collider.SendMessage("Hit", 3);
