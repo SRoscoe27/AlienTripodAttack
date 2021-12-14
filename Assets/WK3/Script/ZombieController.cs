@@ -21,12 +21,13 @@ Variables include:
     - public float attackInterval: The time in which to reset the attack interval
     - public bool alreadyAttacked: To see if the zombie has already attacked, if so then the animation is reset
     - public float sightRange, attackRange: The range in which the zombie can see you and walk towards and attack you respectively
-    - public bool playerInSightRange, playerInAttackRange: bolleans to show when the player in sight/attack range to the zombies
+    - public bool playerInSightRange, playerInAttackRange: bolleans to show when the player in sight/attack range to the zombies.
 **/
 
 public class ZombieController : MonoBehaviour
 {
     public GameObject powercell;
+    public GameObject bloodEffect;
 
     public NavMeshAgent agent;
     public Transform player;
@@ -104,14 +105,19 @@ public class ZombieController : MonoBehaviour
     public void death(){
         //handles the death of the zombie and drops powercell, use after zombie is shot
         double chance = Random.Range(0f, 1f);
+        Vector3 spawn = transform.position + new Vector3(0,1,0);
+        bloodEffect.SetActive(true);
+        GameObject blood = Instantiate(bloodEffect, spawn, Quaternion.identity) as GameObject;
+        
         if(chance > 0.6){
-            Vector3 spawn = transform.position + new Vector3(0,1,0);
             GameObject temp = Instantiate(powercell, spawn, Quaternion.identity) as GameObject;
             Destroy(gameObject);
         }
         else{
             Destroy(gameObject);
         }
+
+        Destroy(blood);
         
     }
     void Hit(int damage){

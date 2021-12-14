@@ -66,7 +66,11 @@ public class GunController : MonoBehaviour{
                 if(distance < range){
                     Debug.Log("Hit Enemy");
                     try{ 
-                        hit.collider.SendMessage("Hit", 1);
+                        if(isRifle){
+                             hit.collider.SendMessage("Hit", 3);
+                        }else{
+                             hit.collider.SendMessage("Hit", 1);
+                        }
                     }
                         catch (System.Exception){
                     }
