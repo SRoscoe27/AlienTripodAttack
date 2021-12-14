@@ -32,14 +32,12 @@ public class HUD_Behavior : MonoBehaviour
     public Text Ammo;
     public Text reserveAmmo ;
     public Text Powercell_no;
+    public AudioClip gunCock;
 
     [SerializeField] private Sprite rifleSprite;
     [SerializeField] private Sprite pistolSprite;
 
     private Image icon;
-
-    // public GameObject Handgun;
-    // public GameObject Rifle;
 
     public GameObject H_Text;
     public GameObject R_Text;
@@ -51,6 +49,8 @@ public class HUD_Behavior : MonoBehaviour
     public GameObject ram;
     private GunController ammo_amount;
     private GunController r_ammo_amount;
+    public int tempAmmo;
+    protected int tempRAmmo;
 
     private Slider fuelBar;
     private JetpackBehavior jetpack;
@@ -69,12 +69,12 @@ public class HUD_Behavior : MonoBehaviour
     void Update()
     {
         if(ammo_amount.isRifle == true){
+            tempAmmo = ammo_amount._currentAmmo;
+            tempRAmmo = ammo_amount._currentReserve;
+
             icon.sprite = rifleSprite;
-            // Rifle.SetActive(true);
             R_Text.SetActive(true);
-            // Handgun.SetActive(false);
-             H_Text.SetActive(false);
-            //Handgun.active = !Handgun.active;
+            H_Text.SetActive(false);
 
             r_ammo_amount = ram.GetComponent<GunController>();
             Ammo.text = r_ammo_amount._currentAmmo.ToString();
@@ -84,25 +84,33 @@ public class HUD_Behavior : MonoBehaviour
             isFiring = true;
             isFiring = false;
 
-            // if ammo is equal to 0 then switch to the handgun with infinite ammo
-            if(r_ammo_amount._currentAmmo == 0){
-                //Rifle.active = !Rifle.active;
-                icon.sprite = pistolSprite;
-                R_Text.active = !R_Text.active;
-                //Handgun.active = !Handgun.active;
-                H_Text.active = !H_Text.active;
             }
+            // if ammo is equal to 0 then switch to the handgun with infinite ammo
+            if(r_ammo_amount._currentAmmo <= 0 && r_ammo_amount._currentReserve <= 0){
+                r_ammo_amount.isRifle = false;
+                icon.sprite = pistolSprite;
+                R_Text.SetActive(false);
+                H_Text.SetActive(true);
 
-        }
+                ham.SetActive(true);
+                ram.SetActive(false);
+                AudioSource.PlayClipAtPoint(gunCock, transform.position);
+
+                ammo_amount._currentAmmo = tempAmmo;
+                ammo_amount._currentReserve = tempRAmmo;
+                Ammo.text = ammo_amount._currentAmmo.ToString();
+                reserveAmmo.text = ammo_amount._currentReserve.ToString();
+
+            }
 
         }
         else{
             // Displays the ammo value to the HUD.
-        Ammo.text = ammo_amount._currentAmmo.ToString();
-        reserveAmmo.text = ammo_amount._currentReserve.ToString();
-        if(Input.GetMouseButtonDown(1) && !isFiring && ammo_amount._currentAmmo > 0){
-            isFiring = true;
-            isFiring = false;
+            Ammo.text = ammo_amount._currentAmmo.ToString();
+            reserveAmmo.text = ammo_amount._currentReserve.ToString();
+            if(Input.GetMouseButtonDown(1) && !isFiring && ammo_amount._currentAmmo > 0){
+                isFiring = true;
+                isFiring = false;
         }
         }
         
