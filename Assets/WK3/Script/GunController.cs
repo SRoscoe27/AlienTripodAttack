@@ -36,12 +36,14 @@ public class GunController : MonoBehaviour{
         }else if(Input.GetKeyDown(KeyCode.R) && _currentAmmo < clipSize && _currentReserve > 0){
             Debug.Log("reloading");
             int amountNeeded = clipSize - _currentAmmo;
-            if(amountNeeded>=_currentReserve){
+            if(amountNeeded <= _currentReserve){
                 _currentAmmo += amountNeeded;
                 _currentReserve -= amountNeeded;
+                Debug.Log("whyy");
             }else{
                 _currentAmmo += _currentReserve;
                 _currentReserve -= amountNeeded;
+                Debug.Log("bhyy");
                 if(isRifle){
                     rifle.SetActive(false);
                     pistol.SetActive(true);

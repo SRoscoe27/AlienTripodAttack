@@ -30,43 +30,69 @@ public class HUD_Behavior : MonoBehaviour
 {
     public bool isFiring;
     public Text Ammo;
+    public Text reserveAmmo ;
     public Text Powercell_no;
 
     public GameObject Handgun;
     public GameObject Rifle;
 
+    public GameObject H_Text;
+    public GameObject R_Text;
+
     public GameObject pc;
     private shooter powercell_amount;
 
-    public GameObject am;
+    public GameObject ham;
+    public GameObject ram;
     private GunController ammo_amount;
+    private GunController r_ammo_amount;
 
     // Start is called before the first frame update
     void Start()
     {
         powercell_amount = pc.GetComponent<shooter>();
-        ammo_amount = am.GetComponent<GunController>();
+        ammo_amount = ham.GetComponent<GunController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Displays the ammo value to the HUD.
-        Ammo.text = ammo_amount._currentAmmo.ToString();
-        // if user uses the right click, the user is not currently firing and they have ammo perform the following
-        if(Input.GetMouseButtonDown(1) && !isFiring && ammo_amount._currentAmmo > 0){
+        if(ammo_amount.isRifle == true){
+            Rifle.SetActive(true);
+            R_Text.SetActive(true);
+            Handgun.SetActive(false);
+            H_Text.SetActive(false);
+            //Handgun.active = !Handgun.active;
+
+            r_ammo_amount = ram.GetComponent<GunController>();
+            Ammo.text = r_ammo_amount._currentAmmo.ToString();
+            reserveAmmo.text = r_ammo_amount._currentReserve.ToString();
+
+            if(Input.GetMouseButtonDown(1) && !isFiring && r_ammo_amount._currentAmmo > 0){
             isFiring = true;
-            ammo_amount._currentAmmo --; 
             isFiring = false;
 
             // if ammo is equal to 0 then switch to the handgun with infinite ammo
-            if(ammo_amount._currentAmmo == 0){
+            if(r_ammo_amount._currentAmmo == 0){
                 Rifle.active = !Rifle.active;
+                R_Text.active = !R_Text.active;
                 Handgun.active = !Handgun.active;
+                H_Text.active = !H_Text.active;
             }
 
         }
 
+        }
+        else{
+            // Displays the ammo value to the HUD.
+        Ammo.text = ammo_amount._currentAmmo.ToString();
+        reserveAmmo.text = ammo_amount._currentReserve.ToString();
+        if(Input.GetMouseButtonDown(1) && !isFiring && ammo_amount._currentAmmo > 0){
+            isFiring = true;
+            isFiring = false;
+        }
+        }
+        
         //Display the number of powercells to the HUD.
         Powercell_no.text = powercell_amount.no_cell.ToString();
 

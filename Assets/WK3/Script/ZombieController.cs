@@ -105,7 +105,8 @@ public class ZombieController : MonoBehaviour
         //handles the death of the zombie and drops powercell, use after zombie is shot
         double chance = Random.Range(0f, 1f);
         if(chance > 0.6){
-            GameObject temp = Instantiate(powercell, transform.position, Quaternion.identity) as GameObject;
+            Vector3 spawn = transform.position + new Vector3(0,1,0);
+            GameObject temp = Instantiate(powercell, spawn, Quaternion.identity) as GameObject;
             Destroy(gameObject);
         }
         else{
