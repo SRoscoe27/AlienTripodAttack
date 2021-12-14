@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 4389320645946552}
   - component: {fileID: 33176947964136210}
   - component: {fileID: 23598256546927380}
+  - component: {fileID: -6244645714557630260}
   m_Layer: 0
   m_Name: Handgun_01
   m_TagString: Untagged
@@ -249,6 +250,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-6244645714557630260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669814075106190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de69453d0e4b00d4c8d9b1e65a0a3055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1672287814348484
 GameObject:
   m_ObjectHideFlags: 0

@@ -2736,6 +2736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powercell: {fileID: 2342864988706241219, guid: 3764f0174f55a3b4ab7767ad21ba12b8, type: 3}
+  bloodEffect: {fileID: 4590501667470949315, guid: 239927d432a51df43817622c17f7b374, type: 3}
   agent: {fileID: 9140466469208481988}
   player: {fileID: 0}
   whatIsGround:
@@ -2751,7 +2752,8 @@ MonoBehaviour:
   attackRange: 0
   playerInSightRange: 0
   playerInAttackRange: 0
-  health: 1
+  health: 2
+  removeTime: 2
 --- !u!54 &7624432944301133985
 Rigidbody:
   m_ObjectHideFlags: 0

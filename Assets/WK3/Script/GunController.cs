@@ -10,33 +10,47 @@ public class GunController : MonoBehaviour{
     public int reservedAmmoCapacity;
     public float range;
     public bool isRifle;
+    public GameObject isRifles;
+    private shooter rifleCheck; 
 
     public GameObject pistol;
     public GameObject rifle;
 
+    public GameObject bloodEffect;
+    public float removeTime = 2.0f;
+    public AudioClip shotSound;
+    public AudioClip gunCock;
+
     bool _canShoot;
-    int _currentAmmo;
-    int _currentReserve;
+    public int _currentAmmo;
+    public int _currentReserve;
+
+    public void SwapToRifle(){
+        isRifle = true;
+        rifle.SetActive(true);
+        pistol.SetActive(false);
+    }
 
     private void Start(){
 
         _currentAmmo = clipSize;
         _currentReserve = reservedAmmoCapacity;
         _canShoot = true;
-        
-        isRifle = false;
+        rifleCheck = isRifles.GetComponent<shooter>();
     }
 
     private void Update(){
-        if(Input.GetMouseButton(0) && _canShoot && _currentAmmo > 0){
+        if(Input.GetMouseButton(1) && _canShoot && _currentAmmo > 0){
             Debug.Log("Shooting gun");
+            AudioSource.PlayClipAtPoint(shotSound, transform.position);
             _canShoot = false;
             _currentAmmo--;
             StartCoroutine(ShootGun());
         }else if(Input.GetKeyDown(KeyCode.R) && _currentAmmo < clipSize && _currentReserve > 0){
             Debug.Log("reloading");
+            AudioSource.PlayClipAtPoint(gunCock, transform.position);
             int amountNeeded = clipSize - _currentAmmo;
-            if(amountNeeded>=_currentReserve){
+            if(amountNeeded <= _currentReserve){
                 _currentAmmo += amountNeeded;
                 _currentReserve -= amountNeeded;
             }else{
@@ -56,15 +70,21 @@ public class GunController : MonoBehaviour{
         _canShoot = true;
     }
     void RayCastForEnemy(){
-        Debug.Log("Raycast for enemy");
+        Debug.Log("Raycast for enemy ");
         RaycastHit hit;
         if(Physics.Raycast(transform.parent.position, transform.parent.forward, out hit)){
             if(hit.transform.CompareTag("Alien")){
                 float distance =  Vector3.Distance(hit.transform.position, transform.position);
                 if(distance < range){
                     Debug.Log("Hit Enemy");
+                    GameObject blood = Instantiate(bloodEffect, hit.transform.position + new Vector3(0,1,0), Quaternion.identity) as GameObject;
+                    Destroy(blood ,removeTime);
                     try{ 
-                        hit.collider.SendMessage("Hit", 1);
+                        if(rifleCheck.isRifle){
+                             hit.collider.SendMessage("Hit", 3);
+                        }else{
+                             hit.collider.SendMessage("Hit", 1);
+                        }
                     }
                         catch (System.Exception){
                     }
@@ -73,11 +93,6 @@ public class GunController : MonoBehaviour{
                 }
             }  
         }
-    }
-    public void SwapToRifle(){
-        isRifle = true;
-        rifle.SetActive(true);
-        pistol.SetActive(false);
     }
 }
 

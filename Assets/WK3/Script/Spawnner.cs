@@ -22,15 +22,8 @@ public class Spawnner : MonoBehaviour
         zombieCount++;
         Debug.Log(zombieCount);
         // to do: needs to reduce zombie count if they die
-        if(zombieCount < 5){
-            StartCoroutine("Spawn");
-        }
-        else{
-            StopCoroutine("Spawn");
-        }
-            //Start the spawn update
-            
-        }
+        StartCoroutine("Spawn");
+    }
     
     // Update is called once per frame
     void Update()
