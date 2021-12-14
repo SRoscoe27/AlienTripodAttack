@@ -28,7 +28,6 @@ Variables include:
 
 public class HUD_Behavior : MonoBehaviour
 {
-    public int ammo = 5;
     public bool isFiring;
     public Text Ammo;
     public Text Powercell_no;
@@ -39,25 +38,29 @@ public class HUD_Behavior : MonoBehaviour
     public GameObject pc;
     private shooter powercell_amount;
 
+    public GameObject am;
+    private GunController ammo_amount;
+
     // Start is called before the first frame update
     void Start()
     {
         powercell_amount = pc.GetComponent<shooter>();
+        ammo_amount = am.GetComponent<GunController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Displays the ammo value to the HUD.
-        Ammo.text = ammo.ToString();
+        Ammo.text = ammo_amount._currentAmmo.ToString();
         // if user uses the right click, the user is not currently firing and they have ammo perform the following
-        if(Input.GetMouseButtonDown(1) && !isFiring && ammo > 0){
+        if(Input.GetMouseButtonDown(1) && !isFiring && ammo_amount._currentAmmo > 0){
             isFiring = true;
-            ammo --; 
+            ammo_amount._currentAmmo --; 
             isFiring = false;
 
             // if ammo is equal to 0 then switch to the handgun with infinite ammo
-            if(ammo == 0){
+            if(ammo_amount._currentAmmo == 0){
                 Rifle.active = !Rifle.active;
                 Handgun.active = !Handgun.active;
             }

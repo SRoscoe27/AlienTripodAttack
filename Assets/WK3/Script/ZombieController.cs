@@ -45,6 +45,9 @@ public class ZombieController : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    //health
+    public int health;
+
     public void Awake(){
         player = GameObject.Find ("FirstPerson-AIO").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -109,6 +112,12 @@ public class ZombieController : MonoBehaviour
             Destroy(gameObject);
         }
         
+    }
+    void Hit(int damage){
+        health -= damage;
+        if(health<=0){
+            death();
+        }
     }
     void Start(){
         

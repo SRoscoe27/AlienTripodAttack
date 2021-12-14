@@ -31,12 +31,12 @@ Variables include:
 
 public class shooter : MonoBehaviour
 {
-
-    public GameObject powercell;
-    public int no_cell; 
-    public float throwSpeed= 20;  
-    public AudioClip throwSound; 
-    public AudioClip collectionSound;
+    public GameObject pistol;
+    public GameObject powercell; //link to the powerCell prefab 
+    public int no_cell; //number of powerCell owned 
+    public AudioClip throwSound; //throw sound 
+    public float throwSpeed= 20;//throw speed  
+    public AudioClip collectionSound; // sound when power cell is collected
     public AudioClip gameOver;
     private Rigidbody rb;
 
@@ -78,7 +78,10 @@ public class shooter : MonoBehaviour
             GOImage.active = !GOImage.active;
 
         }
-
+        if(other.gameObject.CompareTag("RiflePickup")){
+            pistol.GetComponent<GunController>().SwapToRifle();
+            Destroy(other); 
+        }
     }
 
     // Update is called once per frame
