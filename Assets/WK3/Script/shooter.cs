@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 /**
 @author Sophia Roscoe and previous predefined work
@@ -60,8 +58,8 @@ public class shooter : MonoBehaviour
 
     // Code for picking up power cell collectables and zombie interaction
     void OnTriggerEnter(Collider other){
+        Debug.Log("Triggered");
         if(other.gameObject.CompareTag("Pick Up")){
-            Debug.Log("Triggered");
             other.gameObject.SetActive(false);
             AudioSource.PlayClipAtPoint(collectionSound, transform.position);
             no_cell ++;
