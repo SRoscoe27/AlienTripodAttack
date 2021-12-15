@@ -9,6 +9,10 @@ TagManager:
   - Fire
   - Pick Up
   - Crates
+  - Alien
+  - Pistol
+  - Rifle
+  - RiflePickup
   layers:
   - Default
   - TransparentFX
@@ -16,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
