@@ -86,7 +86,7 @@ public class HUD_Behavior : MonoBehaviour
 
             }
             // if ammo is equal to 0 then switch to the handgun with infinite ammo
-            if(r_ammo_amount._currentAmmo <= 0 && r_ammo_amount._currentReserve <= 0){
+            if((r_ammo_amount._currentAmmo <= 0) && (r_ammo_amount._currentReserve <= 0)){
                 r_ammo_amount.isRifle = false;
                 icon.sprite = pistolSprite;
                 R_Text.SetActive(false);
