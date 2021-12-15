@@ -12783,6 +12783,7 @@ MonoBehaviour:
   pc: {fileID: 1302838818}
   ham: {fileID: 1798332106}
   ram: {fileID: 199314561}
+  tempAmmo: 0
 --- !u!114 &756674035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19496,7 +19497,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967231
+    m_Bits: 4294967295
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -19506,7 +19507,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 84face1f3a491d342b6880d440b944b8, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: ac1e1e04a4959a349b717d950ae56082, type: 2}
 --- !u!4 &1314794063
 Transform:
   m_ObjectHideFlags: 0
