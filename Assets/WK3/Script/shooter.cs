@@ -12,10 +12,14 @@ child compoants including the player camera. This included functionality that ca
 as their conditions are based on the user. 
 
 Variables include: 
+    - public GameObject pistol: used to access the GunController script to switch to the rifle when needed
     - public GameObject powercell: GameObject to store the powercell prefab
+    - public GameObject rifleBeacon: Used to store the beacon particle effect
     - public int no_cell: Number of powercells owned 
     - public float throwspeed: Speed at powercell is thrown
     - public AudioClip throwSound: Sound when powercell is thrown
+    - public bool isRifle: Used to indcate that the rifle is being used
+    - public AudioClip gunCock: Used to access the sound when the user reloads or picks up the rifle
     - public AudioClip collectionSound: Sound when powercell is collected 
     - public AudioClip gameOver: Sound when game over screen is enabled
     - private Rigidbody rb: Provides a rigidbody for us to add force to. This allows us to create the propulsion/physics 
@@ -32,14 +36,14 @@ Variables include:
 public class shooter : MonoBehaviour
 {
     public GameObject pistol;
-    public GameObject powercell; //link to the powerCell prefab 
+    public GameObject powercell;
     public GameObject rifleBeacon;
-    public int no_cell; //number of powerCell owned 
-    public float throwSpeed= 20;//throw speed  
+    public int no_cell;
+    public float throwSpeed= 20; 
     public bool isRifle;
-    public AudioClip throwSound; //throw sound 
+    public AudioClip throwSound; 
     public AudioClip gunCock;
-    public AudioClip collectionSound; // sound when power cell is collected
+    public AudioClip collectionSound;
     public AudioClip gameOver;
     private Rigidbody rb;
 
@@ -69,7 +73,7 @@ public class shooter : MonoBehaviour
 
         // Code for when zombie touches player
         else if (other.gameObject.CompareTag("Alien")){
-            Debug.Log("Noooo an alien hit me i die now");
+            Debug.Log("Noooo an alien hit me!");
             //Play game over music and freeze time so no interactions in the game affect the following
             AudioSource.PlayClipAtPoint(gameOver, transform.position);
             Time.timeScale = 0; 
@@ -101,7 +105,7 @@ public class shooter : MonoBehaviour
             //play throw sound 
             AudioSource.PlayClipAtPoint(throwSound, transform.position);  
  
-            //instantaite the power cel as game object 
+            //instantiate the power cell as game object 
             GameObject cell = Instantiate(powercell, transform.position, transform.rotation) as GameObject; 
  
             //ask physics engine to ignore collison between  

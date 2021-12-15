@@ -11,18 +11,31 @@ The purpose of this script is to control the behavior of assets on the HUD allow
 events in the game and not interfer with other UI menus. This creates a positive and immersive game experience 
 
 Variables include: 
-    - public int ammo: Contains the ammo amount for the rifle. Set to 5.
     - public Boolean isFiring: Used to signal if the user is firing or not
     - public Text Ammo: Used to display text on the HUD showing the current amount of ammo the user has
+    - public Text reserveAmmo: Used to display text on the HUD showing the current amount of reserve ammo the user has
     - public Text Powercell_no: Used to display text on the HUD showing the current amount of powercells the user has.
-    - public GameObject Handgun: Used to store the Handgun game object and its child compoants
-        When active the handgun will appear on the HUD indicating that this is the users current weapon. 
-    - public GameObject Rifle: Used to store the Rifle game object and its child compoants
-        When active the rifle will appear on the HUD indicating that this is the users current weapon until the ammo has run out.
+    - public AudioClip gunCock: Used to access the sound when the user reloads or picks up the rifle
+    - private Sprite rifleSprite: Used to store the HUD sprite of the rifle
+    - private Sprite pistolSprite: Used to store the HUD sprite of the pistol. This is used to indicate what weapon the user is using 
+    - private Image icon: Used to display the above sprites
+    - Public GameObject H_Text: Used to store the HUD text describing the current gun being used. This is active when the handgun is used
+    - Public GameObject R_Text: Used to store the HUD text describing the current gun being used. This is active when the rifle is used
     - public GameObject pc: Contains the script shooter to allow us to access/use the no_cell value, this
         ensures that the user knows the number of powercells they have. 
-    - public shooter powercell_amount: A variable of type shooter. This allows us to use the pc GameObject in methods to 
+    - private shooter powercell_amount: A variable of type shooter. This allows us to use the pc GameObject in methods to 
         show the number of powercells the user currently has. 
+        
+    - public GameObject ham: Used to interact with the GunController script to get ammo values for the handgun
+    - public GameObject ram: Used to interact with the GunController script to get ammo values for the rifle
+    - private GunController ammo_amount: Used to acquire the GunController script so we can get the ammo values for the handgun
+    - private GunController r_ammo_amount: Used to acquire the GunController script so we can get the ammo values for the rifle
+
+    - public int tempAmmo: used to store the Handguns ammo when the rifle is active
+    - public int tempRAmmo: used to store the Handguns reserve ammo when the rifle is active
+
+    - private Slider fuelBar: HUD device used to act as a fuel bar for the amount of fuel the user has in the jetpack
+    - private JetpackBehavior jetpack: Used to access the jetpack script to get the current fuel amount/ratio/
 
 **/ 
 
@@ -69,6 +82,7 @@ public class HUD_Behavior : MonoBehaviour
     void Update()
     {
         if(ammo_amount.isRifle == true){
+            //if gun is rifle store the amount of ammo the handgun had
             tempAmmo = ammo_amount._currentAmmo;
             tempRAmmo = ammo_amount._currentReserve;
 
@@ -96,6 +110,7 @@ public class HUD_Behavior : MonoBehaviour
                 ram.SetActive(false);
                 AudioSource.PlayClipAtPoint(gunCock, transform.position);
 
+                // Get the temp ammo back for the handgun
                 ammo_amount._currentAmmo = tempAmmo;
                 ammo_amount._currentReserve = tempRAmmo;
                 Ammo.text = ammo_amount._currentAmmo.ToString();
@@ -119,6 +134,7 @@ public class HUD_Behavior : MonoBehaviour
 
         #region JetPack Fuel
 
+        //Get jetpack fuel ratio
         fuelBar.value = jetpack.getRatio();
 
         #endregion

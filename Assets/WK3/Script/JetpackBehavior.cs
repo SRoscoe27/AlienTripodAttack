@@ -16,6 +16,7 @@ Variables include:
         This provides an audio indication the jetpack is active.
     - public GameObject Jetpack_Smoke: GameObject to store the smoke particle effect for the jetpack, this provides a visual 
         indication that the jetpack is active.
+        
     - public float fuel: Stores the total fuel the jetpack contains
     - public float fuelUsing: Stores the amount of fuel used, this is subtracted from fuel when the jetpack is used
     - public float gravity: Used to store a rough value of gravity. This is used during the physics to allow the jetpack to move up and down realistically
@@ -25,10 +26,6 @@ Variables include:
         is grounded. 
     - public bool isFlying: Used to indicate whether the user is flying
     - public Camera camera: Variable of type camera used to store the location of the camera.
-
-    - Rect fuelRect: UI rectangles used to store the dimentions of the fuel bar at any given point
-    - Texture2D fuelTexture: Displays the fuel bar on the UI Canvas
-    - Vector2 pivotPoint: Used to rotate the fuel bar so that it is vertical on the left side of the screen
 **/
 
 public class JetpackBehavior : MonoBehaviour
@@ -48,12 +45,7 @@ public class JetpackBehavior : MonoBehaviour
     public bool isFlying;
     public Camera camera;
 
-    Rect fuelRect;
-    Texture2D fuelTexture;
-    Vector2 pivotPoint;
-
     // Start is called before the first frame update. This is used to declare various variables
-    // and set up the fuel bar.
     void Start()
     {
         //Gets Rigidbody and Audiosource components and assigns their default position
@@ -69,6 +61,7 @@ public class JetpackBehavior : MonoBehaviour
 
     }
 
+    // function to return current fuel ratio for fuel bar
     public float getRatio(){
         return fuel/fuelUsing;
     }

@@ -12,6 +12,7 @@ the game over screen appears.
 
 Variables include: 
     - public GameObject powercell: Object to store the powercell collectable prefab
+    - public GameObject bloodEffect: Used to store the blood particle effect for when the zombie dies
     - public NavMeshAgent agent: Defines the NavMesh 
     - public Transform player: Used to store the location of the player 
     - public LayerMask whatIsGround, WhatIsPlayer: Allows us to specify layer to include/exclude in certain physics functions
@@ -109,6 +110,7 @@ public class ZombieController : MonoBehaviour
         //handles the death of the zombie and drops powercell, use after zombie is shot
         double chance = Random.Range(0f, 1f);
         Vector3 spawn = transform.position + new Vector3(0,1,0);
+        // Instantiate the blood effect and remove after 2 seconds
         bloodEffect.SetActive(true);
         GameObject blood = Instantiate(bloodEffect, spawn, Quaternion.identity) as GameObject;
 
@@ -120,6 +122,7 @@ public class ZombieController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // remove blood effect after 2 seconds
         Destroy(blood, removeTime);
         
     }
